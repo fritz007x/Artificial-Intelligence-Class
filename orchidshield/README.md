@@ -25,7 +25,7 @@ raw obs ─► perceive.py ─► proposition.py ─► knowledge.py ─► infe
 ```bash
 pip install -r requirements-dev.txt
 python 05_ml/train.py            # synthetic data, train/eval, artifacts, model card (≈3 s, seeded)
-python -m pytest -q              # 118 unit / integration / safety / fairness / e2e tests
+python -m pytest -q              # 119 unit / integration / safety / fairness / e2e tests
 python scripts/demo.py           # headless end-to-end demo of all six scenarios, approval and kill switch
 
 # Service + UI

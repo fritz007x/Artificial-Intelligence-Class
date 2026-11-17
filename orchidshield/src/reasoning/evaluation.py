@@ -43,7 +43,7 @@ def load_learning_report(ml_dir: Path) -> dict:
     p = Path(ml_dir) / "artifacts" / "metrics.json"
     if not p.exists():
         return {"error": "run `python 05_ml/train.py` first"}
-    m = json.loads(p.read_text())
+    m = json.loads(p.read_text(encoding="utf-8"))
     return {"learning_case": m["learning_case"], "selected_model": m["selected_model"],
             "test_metrics": m["test"][m["selected_model"]], "fairness": m["fairness"], "rl": m["rl"],
             "features": FEATURES}

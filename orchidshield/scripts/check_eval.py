@@ -10,7 +10,7 @@ from core.config import load_settings  # noqa: E402
 
 GATES = {"roc_auc": (">=", 0.90), "f1": (">=", 0.75), "ece": ("<=", 0.08)}
 
-m = json.loads((ROOT / "05_ml" / "artifacts" / "metrics.json").read_text())
+m = json.loads((ROOT / "05_ml" / "artifacts" / "metrics.json").read_text(encoding="utf-8"))
 s = load_settings()
 best = m["selected_model"]
 fails = []

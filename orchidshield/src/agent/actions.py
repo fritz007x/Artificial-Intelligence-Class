@@ -163,7 +163,7 @@ class ToolRegistry:
         return p
 
     def _append(self, name: str, rec: dict) -> dict:
-        with self._safe_path(name).open("a") as fh:
+        with self._safe_path(name).open("a", encoding="utf-8") as fh:
             fh.write(json.dumps(rec) + "\n")
         return {"written": name, **rec}
 
@@ -171,7 +171,7 @@ class ToolRegistry:
         tid = f"TKT-{p.case_id[-6:]}-{uuid.uuid4().hex[:4]}"
         (self.runtime / "tickets").mkdir(exist_ok=True)
         path = self._safe_path("tickets").joinpath(f"{tid}.json")
-        path.write_text(json.dumps({"ticket_id": tid, **p.model_dump()}, indent=1))
+        path.write_text(json.dumps({"ticket_id": tid, **p.model_dump()}, indent=1), encoding="utf-8")
         return {"ticket_id": tid}
 
     def _contain(self, action: str, target: str) -> dict:

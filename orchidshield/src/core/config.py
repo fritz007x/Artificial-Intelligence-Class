@@ -131,7 +131,7 @@ class Settings(_M):
 
 def load_settings(path: str | Path | None = None, overrides: dict[str, Any] | None = None) -> Settings:
     cfg_path = Path(path or os.environ.get("ORCHIDSHIELD_CONFIG", PROJECT_ROOT / "configs" / "config.yaml"))
-    data = yaml.safe_load(cfg_path.read_text())
+    data = yaml.safe_load(cfg_path.read_text(encoding="utf-8"))
     if env := os.environ.get("ORCHIDSHIELD_ENV"):
         data["app"]["environment"] = env
     for dotted, value in (overrides or {}).items():

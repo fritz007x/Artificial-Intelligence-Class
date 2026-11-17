@@ -29,7 +29,7 @@ entailment stage, hard constraints and human approval can *authorise* disruptive
 
 ## Sustainability and scalability
 
-- **Compute:** the full pipeline (train + 118 tests + notebook) runs in under a minute on a laptop CPU. Inference is
+- **Compute:** the full pipeline (train + 119 tests + notebook) runs in under a minute on a laptop CPU. Inference is
   milliseconds per case, with no GPU. Neural and LLM enhancements should be justified by measured gains, so the
   energy and cost per decision get tracked alongside accuracy.
 - **LLM usage:** behind a feature flag, called once per case on structured evidence, with low effort and capped tokens.

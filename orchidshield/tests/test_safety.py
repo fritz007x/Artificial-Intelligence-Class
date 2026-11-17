@@ -105,7 +105,7 @@ def test_approval_executes_and_feeds_back(agent, run):
     assert agent.cases[r.case_id].percepts[-1].kind == "tool_result"
     with pytest.raises(ValueError):
         agent.decide(iso.proposal_id, True, approver="approver")
-    lines = (agent.s.path("runtime_dir") / "containment.jsonl").read_text().splitlines()
+    lines = (agent.s.path("runtime_dir") / "containment.jsonl").read_text(encoding="utf-8").splitlines()
     assert json.loads(lines[-1])["target"] == "ws-005"
 
 
@@ -185,9 +185,9 @@ def test_audit_chain_detects_tampering(tmp_path):
     for i in range(3):
         log.record("t", "e", None, {"i": i})
     assert log.verify()[0]
-    lines = (tmp_path / "a.jsonl").read_text().splitlines()
+    lines = (tmp_path / "a.jsonl").read_text(encoding="utf-8").splitlines()
     ev = json.loads(lines[1]); ev["details"]["i"] = 99; lines[1] = json.dumps(ev)
-    (tmp_path / "a.jsonl").write_text("\n".join(lines) + "\n")
+    (tmp_path / "a.jsonl").write_text("\n".join(lines) + "\n", encoding="utf-8")
     ok, _, err = log.verify()
     assert not ok and "seq 2" in err
 

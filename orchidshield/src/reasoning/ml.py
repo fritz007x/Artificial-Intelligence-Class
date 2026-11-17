@@ -241,7 +241,7 @@ def sha256_of(obj: dict) -> str:
 def save_artifact(model, path: Path, metadata: dict) -> dict:
     body = model.to_dict()
     art = {"metadata": {**metadata, "features": FEATURES, "artifact_sha256": sha256_of(body)}, "model": body}
-    Path(path).write_text(json.dumps(art, indent=1))
+    Path(path).write_text(json.dumps(art, indent=1), encoding="utf-8")
     return art["metadata"]
 
 
@@ -255,7 +255,7 @@ class LoadedModel:
 
 def load_artifact(path: Path) -> LoadedModel:
     """Load + integrity-check a model artifact. Raises on tampering or feature drift."""
-    art = json.loads(Path(path).read_text())
+    art = json.loads(Path(path).read_text(encoding="utf-8"))
     meta, body = art["metadata"], art["model"]
     if sha256_of(body) != meta.get("artifact_sha256"):
         raise ValueError("model artifact integrity check failed")

@@ -11,7 +11,7 @@ from reasoning.ml import FEATURES, PROTECTED, load_artifact
 
 ROOT = Path(__file__).resolve().parents[1]
 ART = ROOT / "05_ml" / "artifacts"
-METRICS = json.loads((ART / "metrics.json").read_text())
+METRICS = json.loads((ART / "metrics.json").read_text(encoding="utf-8"))
 S = load_settings()
 
 
@@ -29,10 +29,10 @@ def test_artifact_loads_and_predicts():
 def test_tampered_artifact_is_rejected(tmp_path):
     p = tmp_path / "model.json"
     shutil.copy(ART / "model.json", p)
-    art = json.loads(p.read_text())
+    art = json.loads(p.read_text(encoding="utf-8"))
     key = "w" if "w" in art["model"] else "b2"
     art["model"][key] = [0.0] * len(art["model"][key]) if isinstance(art["model"][key], list) else 9.9
-    p.write_text(json.dumps(art))
+    p.write_text(json.dumps(art), encoding="utf-8")
     with pytest.raises(ValueError, match="integrity"):
         load_artifact(p)
 

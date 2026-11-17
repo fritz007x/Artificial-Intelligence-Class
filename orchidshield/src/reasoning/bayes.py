@@ -42,7 +42,7 @@ class BayesNet:
 
     @classmethod
     def from_json(cls, path: Path) -> "BayesNet":
-        spec = json.loads(Path(path).read_text())
+        spec = json.loads(Path(path).read_text(encoding="utf-8"))
         return cls([Node(n["name"], n["parents"], n["cpt"]) for n in spec["nodes"]], spec.get("query", "Compromise"))
 
     def joint(self, assignment: dict[str, bool]) -> float:

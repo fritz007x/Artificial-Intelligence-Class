@@ -25,7 +25,7 @@ class HMM:
 
     @classmethod
     def from_json(cls, path: Path) -> "HMM":
-        s = json.loads(Path(path).read_text())
+        s = json.loads(Path(path).read_text(encoding="utf-8"))
         return cls(s["states"], s["observations"], s["start"], s["transition"], s["emission"], s.get("stage_severity"))
 
     def _idx(self, seq: list[str]) -> list[int]:

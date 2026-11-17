@@ -10,8 +10,8 @@ from reasoning.fol import HornKB, parse_atom, rules_from_dicts, unify
 from reasoning.logic import parse_clause, pl_fc_entails, pl_resolution, satisfiable, tt_entails
 
 ROOT = Path(__file__).resolve().parents[1]
-CASES = yaml.safe_load((ROOT / "03_logic" / "entailment_tests.yaml").read_text())
-CNF = [parse_clause(l) for l in (ROOT / "03_logic" / "cnf_rules.txt").read_text().splitlines()
+CASES = yaml.safe_load((ROOT / "03_logic" / "entailment_tests.yaml").read_text(encoding="utf-8"))
+CNF = [parse_clause(l) for l in (ROOT / "03_logic" / "cnf_rules.txt").read_text(encoding="utf-8").splitlines()
        if l.strip() and not l.startswith("#")]
 
 
@@ -78,7 +78,7 @@ def test_unification():
 
 
 def test_rules_file_is_well_formed():
-    spec = yaml.safe_load((ROOT / "03_logic" / "rules.yaml").read_text())
+    spec = yaml.safe_load((ROOT / "03_logic" / "rules.yaml").read_text(encoding="utf-8"))
     rules = rules_from_dicts(spec["rules"])
     assert len({r.rule_id for r in rules}) == len(rules)
     for r in rules:                      # range restriction: head vars appear in body

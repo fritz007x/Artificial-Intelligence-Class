@@ -141,7 +141,7 @@ def write_scenarios(directory: Path | None = None) -> list[Path]:
     out = []
     for name, sc in build_scenarios().items():
         p = directory / f"{name}.json"
-        p.write_text(json.dumps(sc, indent=1, default=list))
+        p.write_text(json.dumps(sc, indent=1, default=list), encoding="utf-8")
         out.append(p)
     return out
 
@@ -152,4 +152,4 @@ def load_scenario(name: str) -> dict:
         write_scenarios()
     if not p.resolve().is_relative_to((PROJECT_ROOT / "data" / "scenarios").resolve()):
         raise ValueError("invalid scenario path")
-    return json.loads(p.read_text())
+    return json.loads(p.read_text(encoding="utf-8"))

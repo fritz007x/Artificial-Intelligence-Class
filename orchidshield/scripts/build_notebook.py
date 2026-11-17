@@ -159,8 +159,8 @@ md("""
 code("""
 import yaml
 from reasoning.logic import parse_clause, pl_resolution, tt_entails, satisfiable
-cases=yaml.safe_load((ROOT/"03_logic/entailment_tests.yaml").read_text())
-cnf=[parse_clause(l) for l in (ROOT/"03_logic/cnf_rules.txt").read_text().splitlines() if l.strip() and not l.startswith("#")]
+cases=yaml.safe_load((ROOT/"03_logic/entailment_tests.yaml").read_text(encoding="utf-8"))
+cnf=[parse_clause(l) for l in (ROOT/"03_logic/cnf_rules.txt").read_text(encoding="utf-8").splitlines() if l.strip() and not l.startswith("#")]
 rows=[]
 for c in cases["propositional"]:
     kb=cnf+[frozenset([f]) for f in c["facts"]]
@@ -241,7 +241,7 @@ md("""
 The training pipeline is a script so that CI can reproduce it. Here we load its outputs.
 """)
 code("""
-M=json.loads((ROOT/"05_ml/artifacts/metrics.json").read_text())
+M=json.loads((ROOT/"05_ml/artifacts/metrics.json").read_text(encoding="utf-8"))
 ml_df=pd.DataFrame(M["test"]).T[["roc_auc","f1","precision","recall","fpr","ece"]].round(3)
 RESULTS["ml_selected"]=M["selected_model"]; RESULTS["learning_case"]=M["learning_case"]
 print("selected:",M["selected_model"]); ml_df
@@ -293,7 +293,7 @@ md("""
 """)
 code("""
 out=ROOT/"data/results/simulation_metrics.json"; out.parent.mkdir(parents=True,exist_ok=True)
-out.write_text(json.dumps(RESULTS,indent=1,default=str)); print("wrote",out.relative_to(ROOT))
+out.write_text(json.dumps(RESULTS,indent=1,default=str), encoding="utf-8"); print("wrote",out.relative_to(ROOT))
 """)
 
 nb = nbf.v4.new_notebook(cells=cells, metadata={"kernelspec": {"name": "python3", "display_name": "Python 3",

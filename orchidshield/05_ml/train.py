@@ -141,7 +141,7 @@ def main() -> dict:
                        "ml_can_trigger_disruptive_action": False,
                        "note": "learned scores only re-rank and inform; disruptive actions still need ENTAILED + approval"},
     }
-    (ART / "metrics.json").write_text(json.dumps(report, indent=1))
+    (ART / "metrics.json").write_text(json.dumps(report, indent=1), encoding="utf-8")
     write_model_card(report)
     return report
 
@@ -212,7 +212,7 @@ Revalidate against labelled production data before any real use.
 `05_ml/artifacts/model.json`, sha256 of the body `{m['artifact_sha256'][:16]}…`. This is checked at load time,
 and the service falls back to symbolic scoring if it doesn't match.
 """
-    (ROOT / "05_ml" / "model_card.md").write_text(card)
+    (ROOT / "05_ml" / "model_card.md").write_text(card, encoding="utf-8")
 
 
 if __name__ == "__main__":

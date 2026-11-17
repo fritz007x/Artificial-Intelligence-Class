@@ -48,10 +48,10 @@ def run(agent):
 
 @pytest.fixture
 def api_client(tmp_path, monkeypatch):
-    cfg = yaml.safe_load((ROOT / "configs" / "config.yaml").read_text())
+    cfg = yaml.safe_load((ROOT / "configs" / "config.yaml").read_text(encoding="utf-8"))
     cfg["paths"]["runtime_dir"] = str(tmp_path / "api-runtime")
     p = tmp_path / "config.yaml"
-    p.write_text(yaml.safe_dump(cfg))
+    p.write_text(yaml.safe_dump(cfg), encoding="utf-8")
     monkeypatch.setenv("ORCHIDSHIELD_CONFIG", str(p))
     from core import config
     config.get_settings.cache_clear()

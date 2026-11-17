@@ -22,7 +22,7 @@ class AuditLog:
         self._lock = threading.Lock()
         self._seq, self._last = 0, GENESIS
         if self.path.exists():
-            for line in self.path.read_text().splitlines():
+            for line in self.path.read_text(encoding="utf-8").splitlines():
                 if line.strip():
                     ev = json.loads(line)
                     self._seq, self._last = ev["seq"], ev["hash"]
@@ -37,7 +37,7 @@ class AuditLog:
                     "actor": actor, "event_type": event_type, "case_id": case_id,
                     "details": json.loads(json.dumps(details, default=str)), "prev_hash": self._last}
             body["hash"] = self._digest(body)
-            with self.path.open("a") as fh:
+            with self.path.open("a", encoding="utf-8") as fh:
                 fh.write(json.dumps(body) + "\n")
             self._seq, self._last = body["seq"], body["hash"]
             return AuditEvent.model_validate(body)
@@ -45,7 +45,7 @@ class AuditLog:
     def tail(self, n: int = 100, case_id: str | None = None) -> list[dict]:
         if not self.path.exists():
             return []
-        rows = [json.loads(l) for l in self.path.read_text().splitlines() if l.strip()]
+        rows = [json.loads(l) for l in self.path.read_text(encoding="utf-8").splitlines() if l.strip()]
         if case_id:
             rows = [r for r in rows if r.get("case_id") == case_id]
         return rows[-n:]
@@ -55,7 +55,7 @@ class AuditLog:
         prev, n = GENESIS, 0
         if not self.path.exists():
             return True, 0, None
-        for line in self.path.read_text().splitlines():
+        for line in self.path.read_text(encoding="utf-8").splitlines():
             if not line.strip():
                 continue
             ev = json.loads(line)
@@ -79,7 +79,7 @@ class KillSwitch:
     def engage(self, reason: str = "admin") -> None:
         self._mem, self.reason = True, reason
         self.flag_file.parent.mkdir(parents=True, exist_ok=True)
-        self.flag_file.write_text(reason)
+        self.flag_file.write_text(reason, encoding="utf-8")
 
     def release(self) -> None:
         self._mem, self.reason = False, None

@@ -46,5 +46,5 @@ class TfidfIndex:
 
 
 def load_playbooks(directory: Path) -> TfidfIndex:
-    docs = {p.stem: p.read_text() for p in sorted(Path(directory).glob("*.md"))}
+    docs = {p.stem: p.read_text(encoding="utf-8") for p in sorted(Path(directory).glob("*.md"))}
     return TfidfIndex(docs)

@@ -136,11 +136,11 @@ def evaluate(policy, episodes: int = 5000, seed: int = 99) -> dict[str, float]:
 
 
 def save_q(Q, path: Path) -> None:
-    Path(path).write_text(json.dumps({",".join(map(str, k)): v for k, v in Q.items()}, indent=1))
+    Path(path).write_text(json.dumps({",".join(map(str, k)): v for k, v in Q.items()}, indent=1), encoding="utf-8")
 
 
 def load_q(path: Path) -> dict[State, dict[str, float]]:
-    raw = json.loads(Path(path).read_text())
+    raw = json.loads(Path(path).read_text(encoding="utf-8"))
     return {tuple(int(x) for x in k.split(",")): v for k, v in raw.items()}  # type: ignore[misc]
 
 

@@ -15,6 +15,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "src"))
+# The demo prints symbols such as ↳ and ✖; keep redirected output on Windows (cp1252) from crashing.
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
 
 def banner(t: str) -> None:
@@ -58,10 +60,10 @@ def main() -> None:
         for r, k in keys.items():
             os.environ[f"ORCHIDSHIELD_{r.upper()}_KEY"] = k
         import yaml
-        cfg = yaml.safe_load((ROOT / "configs" / "config.yaml").read_text())
+        cfg = yaml.safe_load((ROOT / "configs" / "config.yaml").read_text(encoding="utf-8"))
         cfg["paths"]["runtime_dir"] = tempfile.mkdtemp(prefix="orchid-demo-")
         p = Path(cfg["paths"]["runtime_dir"]) / "config.yaml"
-        p.write_text(yaml.safe_dump(cfg))
+        p.write_text(yaml.safe_dump(cfg), encoding="utf-8")
         os.environ["ORCHIDSHIELD_CONFIG"] = str(p)
         from fastapi.testclient import TestClient
         from api.app import app

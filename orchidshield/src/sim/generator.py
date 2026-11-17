@@ -119,7 +119,7 @@ def make_alert_dataset(n: int = 4000, seed: int = 1337) -> list[dict]:
 
 def write_environment(path: Path | None = None, seed: int = 1337) -> Path:
     path = path or PROJECT_ROOT / "data" / "synthetic" / "environment.json"
-    path.write_text(json.dumps(make_environment(seed), indent=1))
+    path.write_text(json.dumps(make_environment(seed), indent=1), encoding="utf-8")
     return path
 
 
@@ -127,4 +127,4 @@ def load_environment() -> dict:
     p = PROJECT_ROOT / "data" / "synthetic" / "environment.json"
     if not p.exists():
         write_environment(p)
-    return json.loads(p.read_text())
+    return json.loads(p.read_text(encoding="utf-8"))

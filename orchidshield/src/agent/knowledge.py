@@ -39,10 +39,10 @@ class KnowledgeBase:
     def __init__(self, settings: Settings, environment: dict):
         self.s = settings
         logic_dir = settings.path("logic_dir")
-        spec = yaml.safe_load((logic_dir / "rules.yaml").read_text())
+        spec = yaml.safe_load((logic_dir / "rules.yaml").read_text(encoding="utf-8"))
         self.rules: list[Rule] = rules_from_dicts(spec["rules"])
         self.rule_meta = {r["id"]: r for r in spec["rules"]}
-        self.ontology = yaml.safe_load((logic_dir / "ontology.yaml").read_text())
+        self.ontology = yaml.safe_load((logic_dir / "ontology.yaml").read_text(encoding="utf-8"))
         self.facts: dict[tuple, KnowledgeFact] = {}
         self.models: dict[str, ModelMetadata] = {}
         self.assets: dict[str, dict] = {}
