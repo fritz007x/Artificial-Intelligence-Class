@@ -1,0 +1,26 @@
+# Propositional (ground) abstraction of the core triage rules, in CNF.
+# Symbols are ground propositions for one alert A, host H, user U.
+#   ExecA      : AlertClass(A, execution)
+#   IocA       : IOCMatch(A)
+#   CredA      : AlertClass(A, credential_attack)
+#   SafU       : SuccessAfterFailures(U, H)
+#   TpA        : TruePositive(A)
+#   FpA        : AnalystVerdictFP(A)
+#   CompH      : CompromisedHost(H)
+#   CritH      : Critical(H)
+#   HighH      : HighPriorityIncident(H)
+#   ContainH   : ContainmentWarranted(H)
+#
+# Horn form                     -> CNF clause
+# IocA ∧ ExecA → TpA            -> ~IocA | ~ExecA | TpA
+# CredA ∧ SafU → TpA            -> ~CredA | ~SafU | TpA
+# FpA → ¬TpA                    -> ~FpA | ~TpA
+# TpA → CompH                   -> ~TpA | CompH
+# CompH ∧ CritH → HighH         -> ~CompH | ~CritH | HighH
+# CompH → ContainH              -> ~CompH | ContainH
+~IocA | ~ExecA | TpA
+~CredA | ~SafU | TpA
+~FpA | ~TpA
+~TpA | CompH
+~CompH | ~CritH | HighH
+~CompH | ContainH

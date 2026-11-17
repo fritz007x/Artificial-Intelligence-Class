@@ -1,0 +1,11 @@
+-r requirements.txt
+# Training, notebook & tests
+scikit-learn==1.9.1
+pandas==3.0.5
+pytest==9.2.0
+httpx==0.28.1
+nbformat==5.11.1
+nbconvert==7.17.2
+ipykernel==7.4.0
+# Optional hosted narrator (feature flag features.llm_narrative)
+# anthropic>=1.0

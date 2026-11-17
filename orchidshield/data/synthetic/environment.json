@@ -1,0 +1,550 @@
+{
+ "assets": {
+  "fw-01": {
+   "asset_id": "fw-01",
+   "hostname": "fw-01.orchid.test",
+   "asset_type": "firewall",
+   "criticality": 4,
+   "zone": "dmz",
+   "connected_to": [
+    "web-01",
+    "web-02"
+   ],
+   "in_maintenance": false,
+   "business_unit": "it",
+   "edr_installed": true
+  },
+  "web-01": {
+   "asset_id": "web-01",
+   "hostname": "web-01.orchid.test",
+   "asset_type": "server",
+   "criticality": 3,
+   "zone": "dmz",
+   "connected_to": [
+    "srv-app-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "sales",
+   "edr_installed": true
+  },
+  "web-02": {
+   "asset_id": "web-02",
+   "hostname": "web-02.orchid.test",
+   "asset_type": "server",
+   "criticality": 3,
+   "zone": "dmz",
+   "connected_to": [
+    "srv-app-02"
+   ],
+   "in_maintenance": false,
+   "business_unit": "sales",
+   "edr_installed": true
+  },
+  "srv-app-01": {
+   "asset_id": "srv-app-01",
+   "hostname": "srv-app-01.orchid.test",
+   "asset_type": "server",
+   "criticality": 4,
+   "zone": "prod",
+   "connected_to": [
+    "srv-db-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "finance",
+   "edr_installed": true
+  },
+  "srv-app-02": {
+   "asset_id": "srv-app-02",
+   "hostname": "srv-app-02.orchid.test",
+   "asset_type": "server",
+   "criticality": 3,
+   "zone": "prod",
+   "connected_to": [
+    "srv-db-02"
+   ],
+   "in_maintenance": true,
+   "business_unit": "engineering",
+   "edr_installed": true
+  },
+  "srv-app-03": {
+   "asset_id": "srv-app-03",
+   "hostname": "srv-app-03.orchid.test",
+   "asset_type": "server",
+   "criticality": 3,
+   "zone": "prod",
+   "connected_to": [
+    "srv-db-01",
+    "srv-db-02"
+   ],
+   "in_maintenance": false,
+   "business_unit": "engineering",
+   "edr_installed": true
+  },
+  "srv-db-01": {
+   "asset_id": "srv-db-01",
+   "hostname": "srv-db-01.orchid.test",
+   "asset_type": "database",
+   "criticality": 5,
+   "zone": "prod",
+   "connected_to": [],
+   "in_maintenance": false,
+   "business_unit": "finance",
+   "edr_installed": true
+  },
+  "srv-db-02": {
+   "asset_id": "srv-db-02",
+   "hostname": "srv-db-02.orchid.test",
+   "asset_type": "database",
+   "criticality": 5,
+   "zone": "prod",
+   "connected_to": [],
+   "in_maintenance": false,
+   "business_unit": "engineering",
+   "edr_installed": true
+  },
+  "dc-01": {
+   "asset_id": "dc-01",
+   "hostname": "dc-01.orchid.test",
+   "asset_type": "domain_controller",
+   "criticality": 5,
+   "zone": "mgmt",
+   "connected_to": [
+    "file-01",
+    "jump-01",
+    "srv-app-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "it",
+   "edr_installed": true
+  },
+  "siem-01": {
+   "asset_id": "siem-01",
+   "hostname": "siem-01.orchid.test",
+   "asset_type": "siem",
+   "criticality": 4,
+   "zone": "mgmt",
+   "connected_to": [
+    "dc-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "it",
+   "edr_installed": true
+  },
+  "jump-01": {
+   "asset_id": "jump-01",
+   "hostname": "jump-01.orchid.test",
+   "asset_type": "server",
+   "criticality": 4,
+   "zone": "corp",
+   "connected_to": [
+    "srv-db-01",
+    "srv-app-03"
+   ],
+   "in_maintenance": false,
+   "business_unit": "it",
+   "edr_installed": true
+  },
+  "file-01": {
+   "asset_id": "file-01",
+   "hostname": "file-01.orchid.test",
+   "asset_type": "server",
+   "criticality": 3,
+   "zone": "corp",
+   "connected_to": [
+    "srv-app-03"
+   ],
+   "in_maintenance": false,
+   "business_unit": "it",
+   "edr_installed": true
+  },
+  "ws-001": {
+   "asset_id": "ws-001",
+   "hostname": "ws-001.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 2,
+   "zone": "corp",
+   "connected_to": [
+    "file-01",
+    "dc-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "engineering",
+   "edr_installed": true
+  },
+  "ws-002": {
+   "asset_id": "ws-002",
+   "hostname": "ws-002.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 2,
+   "zone": "corp",
+   "connected_to": [
+    "file-01",
+    "dc-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "sales",
+   "edr_installed": true
+  },
+  "ws-003": {
+   "asset_id": "ws-003",
+   "hostname": "ws-003.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 2,
+   "zone": "corp",
+   "connected_to": [
+    "file-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "hr",
+   "edr_installed": true
+  },
+  "ws-004": {
+   "asset_id": "ws-004",
+   "hostname": "ws-004.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 1,
+   "zone": "corp",
+   "connected_to": [
+    "file-01",
+    "jump-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "it",
+   "edr_installed": true
+  },
+  "ws-005": {
+   "asset_id": "ws-005",
+   "hostname": "ws-005.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 2,
+   "zone": "corp",
+   "connected_to": [
+    "file-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "finance",
+   "edr_installed": true
+  },
+  "ws-006": {
+   "asset_id": "ws-006",
+   "hostname": "ws-006.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 2,
+   "zone": "corp",
+   "connected_to": [
+    "file-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "engineering",
+   "edr_installed": true
+  },
+  "ws-007": {
+   "asset_id": "ws-007",
+   "hostname": "ws-007.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 2,
+   "zone": "corp",
+   "connected_to": [
+    "file-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "sales",
+   "edr_installed": true
+  },
+  "ws-008": {
+   "asset_id": "ws-008",
+   "hostname": "ws-008.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 1,
+   "zone": "corp",
+   "connected_to": [
+    "file-01",
+    "jump-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "hr",
+   "edr_installed": true
+  },
+  "ws-009": {
+   "asset_id": "ws-009",
+   "hostname": "ws-009.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 1,
+   "zone": "corp",
+   "connected_to": [
+    "file-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "it",
+   "edr_installed": true
+  },
+  "ws-010": {
+   "asset_id": "ws-010",
+   "hostname": "ws-010.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 1,
+   "zone": "corp",
+   "connected_to": [
+    "file-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "finance",
+   "edr_installed": true
+  },
+  "ws-011": {
+   "asset_id": "ws-011",
+   "hostname": "ws-011.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 2,
+   "zone": "corp",
+   "connected_to": [
+    "file-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "engineering",
+   "edr_installed": true
+  },
+  "ws-012": {
+   "asset_id": "ws-012",
+   "hostname": "ws-012.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 1,
+   "zone": "corp",
+   "connected_to": [
+    "file-01",
+    "jump-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "sales",
+   "edr_installed": true
+  },
+  "ws-013": {
+   "asset_id": "ws-013",
+   "hostname": "ws-013.orchid.test",
+   "asset_type": "workstation",
+   "criticality": 1,
+   "zone": "corp",
+   "connected_to": [
+    "file-01"
+   ],
+   "in_maintenance": false,
+   "business_unit": "hr",
+   "edr_installed": false
+  }
+ },
+ "users": {
+  "u-01": {
+   "user_id": "u-01",
+   "department": "engineering",
+   "region": "EU",
+   "account_type": "standard"
+  },
+  "u-02": {
+   "user_id": "u-02",
+   "department": "sales",
+   "region": "APAC",
+   "account_type": "standard"
+  },
+  "u-03": {
+   "user_id": "u-03",
+   "department": "hr",
+   "region": "LATAM",
+   "account_type": "standard"
+  },
+  "u-04": {
+   "user_id": "u-04",
+   "department": "it",
+   "region": "NA",
+   "account_type": "standard"
+  },
+  "u-05": {
+   "user_id": "u-05",
+   "department": "finance",
+   "region": "EU",
+   "account_type": "standard"
+  },
+  "u-06": {
+   "user_id": "u-06",
+   "department": "engineering",
+   "region": "APAC",
+   "account_type": "standard"
+  },
+  "u-07": {
+   "user_id": "u-07",
+   "department": "sales",
+   "region": "LATAM",
+   "account_type": "standard"
+  },
+  "u-08": {
+   "user_id": "u-08",
+   "department": "hr",
+   "region": "NA",
+   "account_type": "standard"
+  },
+  "u-09": {
+   "user_id": "u-09",
+   "department": "it",
+   "region": "EU",
+   "account_type": "standard"
+  },
+  "u-10": {
+   "user_id": "u-10",
+   "department": "finance",
+   "region": "APAC",
+   "account_type": "standard"
+  },
+  "u-11": {
+   "user_id": "u-11",
+   "department": "engineering",
+   "region": "LATAM",
+   "account_type": "standard"
+  },
+  "u-12": {
+   "user_id": "u-12",
+   "department": "sales",
+   "region": "NA",
+   "account_type": "standard"
+  },
+  "u-13": {
+   "user_id": "u-13",
+   "department": "hr",
+   "region": "EU",
+   "account_type": "standard"
+  },
+  "u-14": {
+   "user_id": "u-14",
+   "department": "it",
+   "region": "APAC",
+   "account_type": "standard"
+  },
+  "u-15": {
+   "user_id": "u-15",
+   "department": "finance",
+   "region": "LATAM",
+   "account_type": "standard"
+  },
+  "u-16": {
+   "user_id": "u-16",
+   "department": "engineering",
+   "region": "NA",
+   "account_type": "standard"
+  },
+  "u-17": {
+   "user_id": "u-17",
+   "department": "sales",
+   "region": "EU",
+   "account_type": "standard"
+  },
+  "u-18": {
+   "user_id": "u-18",
+   "department": "hr",
+   "region": "APAC",
+   "account_type": "standard"
+  },
+  "u-19": {
+   "user_id": "u-19",
+   "department": "it",
+   "region": "LATAM",
+   "account_type": "standard"
+  },
+  "u-20": {
+   "user_id": "u-20",
+   "department": "finance",
+   "region": "NA",
+   "account_type": "standard"
+  },
+  "u-21": {
+   "user_id": "u-21",
+   "department": "engineering",
+   "region": "EU",
+   "account_type": "standard"
+  },
+  "u-22": {
+   "user_id": "u-22",
+   "department": "sales",
+   "region": "APAC",
+   "account_type": "standard"
+  },
+  "u-23": {
+   "user_id": "u-23",
+   "department": "hr",
+   "region": "LATAM",
+   "account_type": "standard"
+  },
+  "u-24": {
+   "user_id": "u-24",
+   "department": "it",
+   "region": "NA",
+   "account_type": "standard"
+  },
+  "adm-01": {
+   "user_id": "adm-01",
+   "department": "it",
+   "region": "NA",
+   "account_type": "privileged"
+  },
+  "svc-backup": {
+   "user_id": "svc-backup",
+   "department": "it",
+   "region": "NA",
+   "account_type": "service"
+  },
+  "bg-admin": {
+   "user_id": "bg-admin",
+   "department": "it",
+   "region": "EU",
+   "account_type": "break_glass"
+  }
+ },
+ "indicators": [
+  {
+   "value": "95852e54b7f3a357f322a112cba41575acb67275afe92cad6502f846843fb8f5",
+   "ioc_type": "sha256",
+   "confidence": 0.95,
+   "source_feed": "orchid-intel",
+   "expires_at": "2027-02-14T00:00:00+00:00"
+  },
+  {
+   "value": "0bc320db8dc92c78b9e290e3185be2b7afdfe9875ea06ebcac52e8b77ba936b6",
+   "ioc_type": "sha256",
+   "confidence": 0.85,
+   "source_feed": "orchid-intel",
+   "expires_at": "2027-01-15T00:00:00+00:00"
+  },
+  {
+   "value": "8fc0a81702e6c4da6c2b5d9aa52f5f9942db0e11b2275c945c06d789b0d8dac5",
+   "ioc_type": "sha256",
+   "confidence": 0.9,
+   "source_feed": "orchid-intel",
+   "expires_at": "2026-11-06T00:00:00+00:00"
+  },
+  {
+   "value": "203.0.113.50",
+   "ioc_type": "ip",
+   "confidence": 0.9,
+   "source_feed": "orchid-intel",
+   "expires_at": "2026-12-16T00:00:00+00:00"
+  },
+  {
+   "value": "198.51.100.23",
+   "ioc_type": "ip",
+   "confidence": 0.4,
+   "source_feed": "community-feed",
+   "expires_at": "2026-12-16T00:00:00+00:00"
+  },
+  {
+   "value": "c2.badcorp.test",
+   "ioc_type": "domain",
+   "confidence": 0.8,
+   "source_feed": "orchid-intel",
+   "expires_at": null
+  }
+ ],
+ "edr_truth": {
+  "ws-005": "malicious",
+  "ws-008": "malicious",
+  "dc-01": "suspicious",
+  "srv-db-01": "clean"
+ },
+ "generated_with_seed": 1337
+}

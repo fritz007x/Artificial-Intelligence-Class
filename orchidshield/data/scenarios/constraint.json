@@ -1,0 +1,328 @@
+{
+ "name": "constraint",
+ "title": "Constraint case: compromised domain controller and service account",
+ "expect": "Preferred isolate_host(dc-01) violates a hard constraint and is blocked; disable_account(svc-backup) is blocked; feasible alternatives (block_ip, disable_account(adm-01), rotate_credentials(svc-backup), segmentation isolation chosen by alpha-beta) are proposed for approval and scheduled by the CSP.",
+ "observations": [
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4000",
+    "timestamp": "2026-11-16T02:00:00+00:00",
+    "user_id": "adm-01",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4001",
+    "timestamp": "2026-11-16T02:01:00+00:00",
+    "user_id": "adm-01",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4002",
+    "timestamp": "2026-11-16T02:02:00+00:00",
+    "user_id": "adm-01",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4003",
+    "timestamp": "2026-11-16T02:03:00+00:00",
+    "user_id": "adm-01",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4004",
+    "timestamp": "2026-11-16T02:04:00+00:00",
+    "user_id": "adm-01",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4005",
+    "timestamp": "2026-11-16T02:05:00+00:00",
+    "user_id": "adm-01",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4006",
+    "timestamp": "2026-11-16T02:06:00+00:00",
+    "user_id": "adm-01",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4007",
+    "timestamp": "2026-11-16T02:07:00+00:00",
+    "user_id": "adm-01",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4099",
+    "timestamp": "2026-11-16T02:09:00+00:00",
+    "user_id": "adm-01",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "success",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4100",
+    "timestamp": "2026-11-16T02:02:00+00:00",
+    "user_id": "svc-backup",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4101",
+    "timestamp": "2026-11-16T02:03:00+00:00",
+    "user_id": "svc-backup",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4102",
+    "timestamp": "2026-11-16T02:04:00+00:00",
+    "user_id": "svc-backup",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4103",
+    "timestamp": "2026-11-16T02:05:00+00:00",
+    "user_id": "svc-backup",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4104",
+    "timestamp": "2026-11-16T02:06:00+00:00",
+    "user_id": "svc-backup",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4105",
+    "timestamp": "2026-11-16T02:07:00+00:00",
+    "user_id": "svc-backup",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "failure",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "auth_event",
+   "source": "auth_log",
+   "data": {
+    "event_id": "E-4199",
+    "timestamp": "2026-11-16T02:09:30+00:00",
+    "user_id": "svc-backup",
+    "asset_id": "dc-01",
+    "src_ip": "203.0.113.50",
+    "geo": [
+     52.5,
+     13.4
+    ],
+    "outcome": "success",
+    "mfa": false
+   }
+  },
+  {
+   "kind": "alert",
+   "source": "siem",
+   "data": {
+    "alert_id": "A-4001",
+    "timestamp": "2026-11-16T02:10:00+00:00",
+    "alert_type": "brute_force",
+    "severity": "critical",
+    "asset_id": "dc-01",
+    "user_id": "adm-01",
+    "src_ip": "203.0.113.50",
+    "indicators": [
+     "203.0.113.50"
+    ],
+    "description": "8 failed logons then success for privileged account"
+   }
+  },
+  {
+   "kind": "alert",
+   "source": "siem",
+   "data": {
+    "alert_id": "A-4002",
+    "timestamp": "2026-11-16T02:10:30+00:00",
+    "alert_type": "password_spray",
+    "severity": "high",
+    "asset_id": "dc-01",
+    "user_id": "svc-backup",
+    "src_ip": "203.0.113.50",
+    "indicators": [
+     "203.0.113.50"
+    ],
+    "description": "Spray against service account then success"
+   }
+  },
+  {
+   "kind": "alert",
+   "source": "siem",
+   "data": {
+    "alert_id": "A-4003",
+    "timestamp": "2026-11-16T02:14:00+00:00",
+    "alert_type": "pass_the_hash",
+    "severity": "high",
+    "asset_id": "dc-01",
+    "user_id": "adm-01",
+    "src_ip": null,
+    "indicators": [],
+    "description": "NTLM relay toward jump-01"
+   }
+  }
+ ]
+}

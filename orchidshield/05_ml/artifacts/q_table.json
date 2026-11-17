@@ -1,0 +1,218 @@
+{
+ "0,0,0,0": {
+  "monitor": 1.2363378295700542,
+  "enrich": -0.0673581906231461,
+  "escalate": -2.9999999999999982,
+  "request_containment": 0.0
+ },
+ "0,0,0,1": {
+  "monitor": 0.6110858417316027,
+  "enrich": -0.068434422338653,
+  "escalate": -2.9999999999999982,
+  "request_containment": 0.0
+ },
+ "0,0,1,0": {
+  "monitor": 1.2789461216733342,
+  "enrich": -0.07636912968760719,
+  "escalate": -2.9999999999999982,
+  "request_containment": 0.0
+ },
+ "1,0,0,0": {
+  "monitor": 1.110615411620839,
+  "enrich": 0.019531999913269087,
+  "escalate": -2.9999999999999982,
+  "request_containment": 0.0
+ },
+ "2,0,0,0": {
+  "monitor": 1.080323639556117,
+  "enrich": 0.03952865465598697,
+  "escalate": -2.999999996415649,
+  "request_containment": 0.0
+ },
+ "2,1,0,0": {
+  "monitor": 2.9644778675372727,
+  "enrich": 7.516280570280461,
+  "escalate": 4.9999999999999964,
+  "request_containment": 0.0
+ },
+ "2,1,0,1": {
+  "monitor": 4.117491545290993,
+  "enrich": 6.937934204103253,
+  "escalate": 4.999962491382119,
+  "request_containment": 8.499999999999993
+ },
+ "2,2,0,1": {
+  "monitor": 4.643327108876755,
+  "enrich": 6.851267395463828,
+  "escalate": 4.999999967761176,
+  "request_containment": 8.499999999999543
+ },
+ "1,1,0,0": {
+  "monitor": 2.534043323991087,
+  "enrich": 6.961482368808757,
+  "escalate": 4.9999999999999964,
+  "request_containment": 0.0
+ },
+ "2,1,1,0": {
+  "monitor": 3.2577491201954674,
+  "enrich": 9.231947286140286,
+  "escalate": 10.999999999999993,
+  "request_containment": 0.0
+ },
+ "1,1,1,1": {
+  "monitor": -0.856805,
+  "enrich": -0.05,
+  "escalate": 5.7387341,
+  "request_containment": 0.0
+ },
+ "1,2,1,1": {
+  "monitor": -0.6000000000000001,
+  "enrich": -0.05,
+  "escalate": 8.2039475888381,
+  "request_containment": 0.0
+ },
+ "2,2,1,1": {
+  "monitor": -0.09708652862601164,
+  "enrich": 3.65797921604989,
+  "escalate": 10.995477918516237,
+  "request_containment": 5.0135000000000005
+ },
+ "1,0,1,0": {
+  "monitor": 1.1781238266090965,
+  "enrich": 0.004236454040610647,
+  "escalate": -2.9999999999999982,
+  "request_containment": 0.0
+ },
+ "0,0,1,1": {
+  "monitor": 0.5124274182246291,
+  "enrich": -0.08101519229877081,
+  "escalate": -2.9999999999613776,
+  "request_containment": 0.0
+ },
+ "1,1,1,0": {
+  "monitor": 3.760436807295472,
+  "enrich": 8.474921418760148,
+  "escalate": 10.999999999999993,
+  "request_containment": 0.0
+ },
+ "1,2,1,0": {
+  "monitor": -0.49985441100500005,
+  "enrich": -0.05,
+  "escalate": 10.025076806838225,
+  "request_containment": 0.0
+ },
+ "2,1,1,1": {
+  "monitor": 0.730639943761267,
+  "enrich": 0.9264578224755387,
+  "escalate": 10.993107633769604,
+  "request_containment": 5.0135000000000005
+ },
+ "2,0,1,0": {
+  "monitor": 1.1479538545874401,
+  "enrich": 0.002145805058287563,
+  "escalate": -2.9999477191985697,
+  "request_containment": 0.0
+ },
+ "1,0,1,1": {
+  "monitor": 0.6708996092398927,
+  "enrich": -0.032502726403092784,
+  "escalate": -2.7341118564104248,
+  "request_containment": 0.0
+ },
+ "1,1,0,1": {
+  "monitor": 0.7324379460796153,
+  "enrich": 1.78261699852956,
+  "escalate": 4.956360182159561,
+  "request_containment": 0.0
+ },
+ "1,2,0,1": {
+  "monitor": 0.11595059833122068,
+  "enrich": 7.342433948052723,
+  "escalate": 0.95,
+  "request_containment": 0.0
+ },
+ "1,0,0,1": {
+  "monitor": 0.5398308205763441,
+  "enrich": -0.10487634117559823,
+  "escalate": -2.916561483166892,
+  "request_containment": 0.0
+ },
+ "2,2,0,0": {
+  "monitor": -0.04332377599374446,
+  "enrich": 0.9139814136178182,
+  "escalate": 4.994104907711131,
+  "request_containment": 0.0
+ },
+ "0,1,1,0": {
+  "monitor": -0.20716755353337146,
+  "enrich": 5.357599933645212,
+  "escalate": 10.99999832688192,
+  "request_containment": 0.0
+ },
+ "0,2,1,0": {
+  "monitor": -0.6000000000000001,
+  "enrich": 3.5598940139880906,
+  "escalate": 0.0,
+  "request_containment": 0.0
+ },
+ "0,1,0,0": {
+  "monitor": -0.05841165408424384,
+  "enrich": 4.609873773130904,
+  "escalate": 4.999999998481509,
+  "request_containment": 0.0
+ },
+ "0,2,0,0": {
+  "monitor": -0.6030500000000001,
+  "enrich": 0.0,
+  "escalate": 3.062897555,
+  "request_containment": 0.0
+ },
+ "2,0,1,1": {
+  "monitor": 0.5161282123320207,
+  "enrich": -0.038437194302027404,
+  "escalate": -0.30000000000000004,
+  "request_containment": -1.8050000000000002
+ },
+ "1,2,0,0": {
+  "monitor": -0.21703669499666617,
+  "enrich": 6.0034879084160755,
+  "escalate": 0.95,
+  "request_containment": 0.0
+ },
+ "2,2,1,0": {
+  "monitor": -0.7892602350618854,
+  "enrich": 8.502271678849946,
+  "escalate": 2.0900000000000003,
+  "request_containment": 0.0
+ },
+ "2,0,0,1": {
+  "monitor": 0.5149044593864102,
+  "enrich": -0.07656363900678244,
+  "escalate": -0.8130000000000001,
+  "request_containment": -3.8903450000000004
+ },
+ "0,1,0,1": {
+  "monitor": -0.4412750000000001,
+  "enrich": 0.7565479425953474,
+  "escalate": 4.324574141163504,
+  "request_containment": 0.0
+ },
+ "0,2,0,1": {
+  "monitor": -0.30000000000000004,
+  "enrich": 4.592430965325017,
+  "escalate": 0.0,
+  "request_containment": 0.0
+ },
+ "0,2,1,1": {
+  "monitor": -0.6000000000000001,
+  "enrich": 1.8749035655020059,
+  "escalate": 0.0,
+  "request_containment": 0.0
+ },
+ "0,1,1,1": {
+  "monitor": -0.5063414685832219,
+  "enrich": 0.0,
+  "escalate": 0.0,
+  "request_containment": 0.0
+ }
+}

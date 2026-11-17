@@ -1,0 +1,611 @@
+{
+ "seed": 1337,
+ "app_version": "1.0.0",
+ "config_version": "2026.11.16-1",
+ "config_sha": "5937ab1d8b2d",
+ "python": "3.13.18",
+ "search": [
+  {
+   "algo": "A*",
+   "cost": 2.29,
+   "expanded": 5.0,
+   "optimal_rate": 1.0
+  },
+  {
+   "algo": "BFS",
+   "cost": 3.21,
+   "expanded": 1.43,
+   "optimal_rate": 0.2857142857142857
+  },
+  {
+   "algo": "DFS",
+   "cost": 3.71,
+   "expanded": 2.57,
+   "optimal_rate": 0.14285714285714285
+  },
+  {
+   "algo": "Greedy",
+   "cost": 3.21,
+   "expanded": 1.43,
+   "optimal_rate": 0.2857142857142857
+  },
+  {
+   "algo": "IDDFS",
+   "cost": 3.21,
+   "expanded": 4.43,
+   "optimal_rate": 0.2857142857142857
+  },
+  {
+   "algo": "UCS",
+   "cost": 2.29,
+   "expanded": 10.43,
+   "optimal_rate": 1.0
+  }
+ ],
+ "heuristic": {
+  "admissible": true,
+  "consistent": true
+ },
+ "local_search": [
+  {
+   "compromised": "ws-004",
+   "optimum": 3.5,
+   "opt_set": [
+    "file-01",
+    "jump-01"
+   ],
+   "exhaustive_evals": 254,
+   "hill_climb": 3.5,
+   "hc_evals": 3170,
+   "annealing": 3.5,
+   "sa_evals": 1500
+  },
+  {
+   "compromised": "ws-008",
+   "optimum": 3.5,
+   "opt_set": [
+    "file-01",
+    "jump-01"
+   ],
+   "exhaustive_evals": 254,
+   "hill_climb": 3.5,
+   "hc_evals": 3170,
+   "annealing": 3.5,
+   "sa_evals": 1500
+  },
+  {
+   "compromised": "web-01",
+   "optimum": 4.0,
+   "opt_set": [
+    "fw-01",
+    "srv-app-01"
+   ],
+   "exhaustive_evals": 254,
+   "hill_climb": 4.0,
+   "hc_evals": 3674,
+   "annealing": 4.0,
+   "sa_evals": 1500
+  }
+ ],
+ "adversarial": [
+  {
+   "compromised": "ws-004",
+   "depth": 2,
+   "minimax_move": "ws-004",
+   "minimax_value": -0.6,
+   "minimax_nodes": 9,
+   "alphabeta_move": "ws-004",
+   "alphabeta_value": -0.6,
+   "alphabeta_nodes": 9,
+   "expectimax_move": "ws-004",
+   "expectimax_value": -0.6,
+   "expectimax_nodes": 9
+  },
+  {
+   "compromised": "ws-004",
+   "depth": 3,
+   "minimax_move": "ws-004",
+   "minimax_value": -0.6,
+   "minimax_nodes": 58,
+   "alphabeta_move": "ws-004",
+   "alphabeta_value": -0.6,
+   "alphabeta_nodes": 44,
+   "expectimax_move": "ws-004",
+   "expectimax_value": -0.6,
+   "expectimax_nodes": 58
+  },
+  {
+   "compromised": "ws-004",
+   "depth": 4,
+   "minimax_move": "ws-004",
+   "minimax_value": -0.6,
+   "minimax_nodes": 547,
+   "alphabeta_move": "ws-004",
+   "alphabeta_value": -0.6,
+   "alphabeta_nodes": 126,
+   "expectimax_move": "ws-004",
+   "expectimax_value": -0.6,
+   "expectimax_nodes": 547
+  },
+  {
+   "compromised": "dc-01",
+   "depth": 2,
+   "minimax_move": null,
+   "minimax_value": -41.0,
+   "minimax_nodes": 37,
+   "alphabeta_move": null,
+   "alphabeta_value": -41.0,
+   "alphabeta_nodes": 17,
+   "expectimax_move": null,
+   "expectimax_value": -35.83,
+   "expectimax_nodes": 37
+  },
+  {
+   "compromised": "dc-01",
+   "depth": 3,
+   "minimax_move": null,
+   "minimax_value": -41.0,
+   "minimax_nodes": 293,
+   "alphabeta_move": null,
+   "alphabeta_value": -41.0,
+   "alphabeta_nodes": 107,
+   "expectimax_move": null,
+   "expectimax_value": -29.17,
+   "expectimax_nodes": 293
+  },
+  {
+   "compromised": "dc-01",
+   "depth": 4,
+   "minimax_move": "jump-01",
+   "minimax_value": -54.8,
+   "minimax_nodes": 2436,
+   "alphabeta_move": "jump-01",
+   "alphabeta_value": -54.8,
+   "alphabeta_nodes": 317,
+   "expectimax_move": null,
+   "expectimax_value": -40.0,
+   "expectimax_nodes": 2436
+  },
+  {
+   "compromised": "srv-app-03",
+   "depth": 2,
+   "minimax_move": "srv-app-03",
+   "minimax_value": -1.8,
+   "minimax_nodes": 23,
+   "alphabeta_move": "srv-app-03",
+   "alphabeta_value": -1.8,
+   "alphabeta_nodes": 15,
+   "expectimax_move": "srv-app-03",
+   "expectimax_value": -1.8,
+   "expectimax_nodes": 23
+  },
+  {
+   "compromised": "srv-app-03",
+   "depth": 3,
+   "minimax_move": "srv-app-03",
+   "minimax_value": -1.8,
+   "minimax_nodes": 180,
+   "alphabeta_move": "srv-app-03",
+   "alphabeta_value": -1.8,
+   "alphabeta_nodes": 59,
+   "expectimax_move": "srv-app-03",
+   "expectimax_value": -1.8,
+   "expectimax_nodes": 180
+  },
+  {
+   "compromised": "srv-app-03",
+   "depth": 4,
+   "minimax_move": "srv-app-03",
+   "minimax_value": -1.8,
+   "minimax_nodes": 1521,
+   "alphabeta_move": "srv-app-03",
+   "alphabeta_value": -1.8,
+   "alphabeta_nodes": 177,
+   "expectimax_move": "srv-app-03",
+   "expectimax_value": -1.8,
+   "expectimax_nodes": 1521
+  }
+ ],
+ "csp": [
+  {
+   "incidents": 2,
+   "slots": 3,
+   "solver": "backtracking",
+   "solved": true,
+   "assignments": 96,
+   "backtracks": 13,
+   "ms": 0.2
+  },
+  {
+   "incidents": 2,
+   "slots": 3,
+   "solver": "MRV+LCV",
+   "solved": true,
+   "assignments": 72,
+   "backtracks": 9,
+   "ms": 0.9
+  },
+  {
+   "incidents": 2,
+   "slots": 3,
+   "solver": "MRV+FC",
+   "solved": true,
+   "assignments": 25,
+   "backtracks": 17,
+   "ms": 0.3
+  },
+  {
+   "incidents": 2,
+   "slots": 3,
+   "solver": "MAC(AC-3)",
+   "solved": true,
+   "assignments": 8,
+   "backtracks": 0,
+   "ms": 0.7
+  },
+  {
+   "incidents": 2,
+   "slots": 3,
+   "solver": "min-conflicts",
+   "solved": true,
+   "assignments": 93,
+   "backtracks": 0,
+   "ms": 2.9
+  },
+  {
+   "incidents": 3,
+   "slots": 5,
+   "solver": "backtracking",
+   "solved": true,
+   "assignments": 361,
+   "backtracks": 32,
+   "ms": 0.4
+  },
+  {
+   "incidents": 3,
+   "slots": 5,
+   "solver": "MRV+LCV",
+   "solved": true,
+   "assignments": 34,
+   "backtracks": 0,
+   "ms": 2.7
+  },
+  {
+   "incidents": 3,
+   "slots": 5,
+   "solver": "MRV+FC",
+   "solved": true,
+   "assignments": 17,
+   "backtracks": 5,
+   "ms": 0.7
+  },
+  {
+   "incidents": 3,
+   "slots": 5,
+   "solver": "MAC(AC-3)",
+   "solved": true,
+   "assignments": 12,
+   "backtracks": 0,
+   "ms": 3.1
+  },
+  {
+   "incidents": 3,
+   "slots": 5,
+   "solver": "min-conflicts",
+   "solved": true,
+   "assignments": 8,
+   "backtracks": 0,
+   "ms": 0.6
+  },
+  {
+   "incidents": 4,
+   "slots": 6,
+   "solver": "backtracking",
+   "solved": true,
+   "assignments": 647,
+   "backtracks": 49,
+   "ms": 0.8
+  },
+  {
+   "incidents": 4,
+   "slots": 6,
+   "solver": "MRV+LCV",
+   "solved": true,
+   "assignments": 2718,
+   "backtracks": 221,
+   "ms": 49.6
+  },
+  {
+   "incidents": 4,
+   "slots": 6,
+   "solver": "MRV+FC",
+   "solved": true,
+   "assignments": 24,
+   "backtracks": 8,
+   "ms": 1.4
+  },
+  {
+   "incidents": 4,
+   "slots": 6,
+   "solver": "MAC(AC-3)",
+   "solved": true,
+   "assignments": 16,
+   "backtracks": 0,
+   "ms": 8.7
+  },
+  {
+   "incidents": 4,
+   "slots": 6,
+   "solver": "min-conflicts",
+   "solved": true,
+   "assignments": 69,
+   "backtracks": 0,
+   "ms": 5.5
+  },
+  {
+   "incidents": 3,
+   "slots": 4,
+   "solver": "backtracking",
+   "solved": false,
+   "assignments": 104072,
+   "backtracks": 16308,
+   "ms": 117.2
+  },
+  {
+   "incidents": 3,
+   "slots": 4,
+   "solver": "MRV+LCV",
+   "solved": false,
+   "assignments": 70004,
+   "backtracks": 8758,
+   "ms": 900.4
+  },
+  {
+   "incidents": 3,
+   "slots": 4,
+   "solver": "MRV+FC",
+   "solved": false,
+   "assignments": 1783,
+   "backtracks": 1783,
+   "ms": 32.3
+  },
+  {
+   "incidents": 3,
+   "slots": 4,
+   "solver": "MAC(AC-3)",
+   "solved": false,
+   "assignments": 1169,
+   "backtracks": 1169,
+   "ms": 44.8
+  },
+  {
+   "incidents": 3,
+   "slots": 4,
+   "solver": "min-conflicts",
+   "solved": false,
+   "assignments": 5000,
+   "backtracks": 0,
+   "ms": 241.2
+  }
+ ],
+ "propositional": [
+  {
+   "id": "PL1_malware_ioc_is_high_priority",
+   "expect": true,
+   "resolution": true,
+   "resolvents": 166,
+   "model_check": true,
+   "models": 1024
+  },
+  {
+   "id": "PL2_credential_attack_without_success_not_entailed",
+   "expect": false,
+   "resolution": false,
+   "resolvents": 133,
+   "model_check": false,
+   "models": 193
+  },
+  {
+   "id": "PL3_containment_from_credential_compromise",
+   "expect": true,
+   "resolution": true,
+   "resolvents": 88,
+   "model_check": true,
+   "models": 1024
+  },
+  {
+   "id": "PL4_analyst_fp_entails_not_tp",
+   "expect": true,
+   "resolution": true,
+   "resolvents": 12,
+   "model_check": true,
+   "models": 1024
+  },
+  {
+   "id": "PL5_noncritical_host_not_high_priority",
+   "expect": false,
+   "resolution": false,
+   "resolvents": 186,
+   "model_check": false,
+   "models": 806
+  },
+  {
+   "id": "PL6_contradiction_is_unsatisfiable",
+   "expect": "unsatisfiable",
+   "resolution": null,
+   "model_check": null,
+   "satisfiable": false
+  }
+ ],
+ "fol": [
+  {
+   "id": "FOL1_entailed_compromise",
+   "query": "HighPriorityIncident(srv-db-01)",
+   "expected": "entailed",
+   "got": "entailed",
+   "proof_steps": 13
+  },
+  {
+   "id": "FOL2_unknown_without_evidence",
+   "query": "CompromisedHost(srv-db-01)",
+   "expected": "unknown",
+   "got": "unknown",
+   "proof_steps": 0
+  },
+  {
+   "id": "FOL3_contradicted_by_analyst",
+   "query": "CompromisedHost(ws-002)",
+   "expected": "contradicted",
+   "got": "contradicted",
+   "proof_steps": 9
+  },
+  {
+   "id": "FOL4_maintenance_scan_refutes",
+   "query": "\u00acTruePositive(A4)",
+   "expected": "entailed",
+   "got": "entailed",
+   "proof_steps": 6
+  },
+  {
+   "id": "FOL5_credential_chain_uncertain_without_success",
+   "query": "CompromisedAccount(u-17)",
+   "expected": "uncertain",
+   "got": "uncertain",
+   "proof_steps": 2
+  },
+  {
+   "id": "FOL6_transitive_ontology",
+   "query": "AlertClass(A6, intrusion)",
+   "expected": "entailed",
+   "got": "entailed",
+   "proof_steps": 7
+  }
+ ],
+ "bayes": [
+  {
+   "evidence": "no evidence",
+   "P(Compromise)": 0.087
+  },
+  {
+   "evidence": "IOC",
+   "P(Compromise)": 0.69
+  },
+  {
+   "evidence": "IOC+EDR",
+   "P(Compromise)": 0.967
+  },
+  {
+   "evidence": "AuthAnomaly",
+   "P(Compromise)": 0.574
+  },
+  {
+   "evidence": "AuthAnomaly in maintenance",
+   "P(Compromise)": 0.177
+  },
+  {
+   "evidence": "IOC + analyst FP",
+   "P(Compromise)": 0.156
+  },
+  {
+   "evidence": "Auth anomaly, EDR missing",
+   "P(Compromise)": 0.372
+  }
+ ],
+ "bayes_check": {
+  "exact": 0.9609628869505731,
+  "sampled": 0.9532110091743119,
+  "n": 1090
+ },
+ "hmm": {
+  "viterbi_acc": 0.773888888888889,
+  "filter_acc": 0.7326666666666667,
+  "naive_baseline_acc": 0.6302222222222222
+ },
+ "kalman": {
+  "false_alarm_rate": 0.016,
+  "detection_rate": 1.0
+ },
+ "ml_selected": "mlp",
+ "learning_case": {
+  "metric": "precision@80 on held-out alerts (analyst queue top 10%)",
+  "rules_only": 0.9375,
+  "rules_plus_ml": 0.975,
+  "improves": true,
+  "rl_improves_reward": true,
+  "guardrails": {
+   "rl_unsafe_action_rate": 0.0,
+   "fairness_gap_ok": true,
+   "ml_can_trigger_disruptive_action": false,
+   "note": "learned scores only re-rank and inform; disruptive actions still need ENTAILED + approval"
+  }
+ },
+ "scenarios": [
+  {
+   "scenario": "normal",
+   "iterations": 2,
+   "top_asset": "ws-005",
+   "P(compromise)": 0.94,
+   "entailed": 4,
+   "contradicted": 1,
+   "pending_approval": [
+    "isolate_host(ws-005)"
+   ],
+   "blocked": []
+  },
+  {
+   "scenario": "uncertain",
+   "iterations": 2,
+   "top_asset": "ws-013",
+   "P(compromise)": 0.43,
+   "entailed": 0,
+   "contradicted": 0,
+   "pending_approval": [],
+   "blocked": []
+  },
+  {
+   "scenario": "contradiction",
+   "iterations": 1,
+   "top_asset": "ws-008",
+   "P(compromise)": 0.58,
+   "entailed": 0,
+   "contradicted": 3,
+   "pending_approval": [],
+   "blocked": [
+    "isolate_host(ws-008)"
+   ]
+  },
+  {
+   "scenario": "constraint",
+   "iterations": 2,
+   "top_asset": "dc-01",
+   "P(compromise)": 0.99,
+   "entailed": 10,
+   "contradicted": 0,
+   "pending_approval": [
+    "isolate_host(jump-01)",
+    "disable_account(adm-01)",
+    "block_ip(203.0.113.50)",
+    "rotate_credentials(svc-backup)"
+   ],
+   "blocked": [
+    "isolate_host(dc-01)",
+    "disable_account(svc-backup)"
+   ]
+  },
+  {
+   "scenario": "adversarial",
+   "iterations": 2,
+   "top_asset": "ws-011",
+   "P(compromise)": 0.01,
+   "entailed": 0,
+   "contradicted": 0,
+   "pending_approval": [],
+   "blocked": [
+    "delete_audit_log(audit)",
+    "isolate_host(dc-01)",
+    "isolate_host(siem-01)",
+    "isolate_host(ws-011)"
+   ]
+  }
+ ]
+}

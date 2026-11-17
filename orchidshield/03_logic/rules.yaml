@@ -1,0 +1,104 @@
+# OrchidShield FOL Horn rules (definite clauses over signed literals).
+# Variables start with "?". Loaded at runtime by src/agent/knowledge.py, so this file
+# IS the auditable rule base - every derived fact in a trace cites one of these ids.
+# Universal quantification is implicit:  ∀a,h. TruePositive(a) ∧ OnAsset(a,h) → CompromisedHost(h)
+rules:
+  # ---- ontology / taxonomy
+  - id: R_SUB_TRANS
+    if: ["SubtypeOf(?x, ?y)", "SubtypeOf(?y, ?z)"]
+    then: "SubtypeOf(?x, ?z)"
+    description: Taxonomy subsumption is transitive.
+    provenance: ontology
+  - id: R_CLASS_SELF
+    if: ["AlertType(?a, ?t)"]
+    then: "AlertClass(?a, ?t)"
+    description: An alert belongs to its own type class.
+    provenance: ontology
+  - id: R_CLASS_UP
+    if: ["AlertType(?a, ?t)", "SubtypeOf(?t, ?c)"]
+    then: "AlertClass(?a, ?c)"
+    description: An alert belongs to every superclass of its type.
+    provenance: ontology
+
+  # ---- indicator matching
+  - id: R_IOC
+    if: ["HasIndicator(?a, ?i)", "KnownBadIndicator(?i)"]
+    then: "IOCMatch(?a)"
+    description: An alert carrying a known-bad (confident, unexpired) indicator is an IOC match.
+    provenance: SOC-PB-01 threat-intel matching
+
+  # ---- true-positive determination
+  - id: R_TP_EXEC_IOC
+    if: ["IOCMatch(?a)", "AlertClass(?a, execution)"]
+    then: "TruePositive(?a)"
+    description: Execution alert with a known-bad indicator is a true positive.
+    provenance: SOC-PB-02 malware triage
+  - id: R_TP_CRED
+    if: ["AlertClass(?a, credential_attack)", "ForUser(?a, ?u)", "OnAsset(?a, ?h)", "SuccessAfterFailures(?u, ?h)"]
+    then: "TruePositive(?a)"
+    description: Credential attack followed by a successful login on the same host is a true positive.
+    provenance: SOC-PB-03 credential compromise
+  - id: R_TP_EDR
+    if: ["MalwareConfirmed(?h)", "OnAsset(?a, ?h)", "AlertClass(?a, execution)"]
+    then: "TruePositive(?a)"
+    description: Endpoint forensics confirming malware upgrades execution alerts on that host.
+    provenance: SOC-PB-02 malware triage
+  - id: R_TP_ANALYST
+    if: ["AnalystVerdictTP(?a)"]
+    then: "TruePositive(?a)"
+    description: Human analyst confirmed the alert.
+    provenance: analyst feedback
+  - id: R_FP_ANALYST
+    if: ["AnalystVerdictFP(?a)"]
+    then: "¬TruePositive(?a)"
+    description: Human analyst marked the alert as a false positive.
+    provenance: analyst feedback
+  - id: R_FP_MAINT_SCAN
+    if: ["InMaintenance(?h)", "OnAsset(?a, ?h)", "AlertClass(?a, reconnaissance)"]
+    then: "¬TruePositive(?a)"
+    description: Recon alerts on a host inside an approved maintenance window are authorised scans.
+    provenance: change-management calendar
+
+  # ---- compromise
+  - id: R_COMP_HOST
+    if: ["TruePositive(?a)", "OnAsset(?a, ?h)"]
+    then: "CompromisedHost(?h)"
+    description: A confirmed true-positive alert implies its host is compromised.
+    provenance: SOC-PB-04 incident declaration
+  - id: R_COMP_ACCT
+    if: ["TruePositive(?a)", "AlertClass(?a, credential_attack)", "ForUser(?a, ?u)"]
+    then: "CompromisedAccount(?u)"
+    description: A true-positive credential attack implies the account is compromised.
+    provenance: SOC-PB-03 credential compromise
+  - id: R_ATRISK
+    if: ["CompromisedAccount(?u)", "LoginSuccess(?u, ?h)"]
+    then: "AtRisk(?h)"
+    description: Hosts a compromised account logged into are at risk.
+    provenance: SOC-PB-03 credential compromise
+
+  # ---- incident severity & containment warrants
+  - id: R_HIGH_PRIO
+    if: ["CompromisedHost(?h)", "Critical(?h)"]
+    then: "HighPriorityIncident(?h)"
+    description: Compromise of a critical asset is a high-priority incident.
+    provenance: SOC-PB-04 incident declaration
+  - id: R_CROWN
+    if: ["CompromisedHost(?h)", "ConnectedTo(?h, ?g)", "Critical(?g)"]
+    then: "CrownJewelExposed(?g)"
+    description: A critical asset adjacent to a compromised host is exposed.
+    provenance: SOC-PB-05 containment
+  - id: R_CONTAIN_HOST
+    if: ["CompromisedHost(?h)"]
+    then: "ContainmentWarranted(?h)"
+    description: Compromised hosts warrant containment (subject to policy & approval).
+    provenance: SOC-PB-05 containment
+  - id: R_CONTAIN_ACCT
+    if: ["CompromisedAccount(?u)"]
+    then: "AccountContainmentWarranted(?u)"
+    description: Compromised accounts warrant credential containment (subject to policy & approval).
+    provenance: SOC-PB-03 credential compromise
+  - id: R_BLOCK_IP
+    if: ["TruePositive(?a)", "FromIP(?a, ?ip)", "ExternalIP(?ip)"]
+    then: "BlockWarranted(?ip)"
+    description: External sources of true-positive alerts warrant a perimeter block.
+    provenance: SOC-PB-05 containment

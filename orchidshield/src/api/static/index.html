@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OrchidShield Triage</title>
+<style>
+:root{--bg:#f6f5f8;--panel:#fff;--ink:#1d1a24;--muted:#6b6577;--line:#e3dfe9;--accent:#7a3e9d;
+--ok:#1f7a4d;--warn:#a86400;--bad:#b3261e;--unk:#56606e;--chip:#f0ebf5}
+@media (prefers-color-scheme:dark){:root{--bg:#141218;--panel:#1d1a23;--ink:#ece8f2;--muted:#a39cb0;--line:#2f2a38;
+--accent:#c08ae0;--ok:#5cc58f;--warn:#e6a845;--bad:#ef6f66;--unk:#9aa4b2;--chip:#2a2433}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+header{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:14px 16px;border-bottom:1px solid var(--line);background:var(--panel)}
+h1{font-size:17px;margin:0 12px 0 0;color:var(--accent)}h2{font-size:13px;letter-spacing:.04em;text-transform:uppercase;margin:0 0 8px;color:var(--muted)}
+input,button,select{font:inherit;padding:6px 10px;border-radius:8px;border:1px solid var(--line);background:var(--panel);color:var(--ink)}
+select{max-width:100%;min-width:0}button{cursor:pointer}button.primary{background:var(--accent);color:#fff;border-color:var(--accent)}button.danger{border-color:var(--bad);color:var(--bad)}
+main{padding:16px;display:grid;gap:14px;max-width:1500px;margin:0 auto}
+.summary{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.stages{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:14px}
+.stage{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:12px;max-height:520px;overflow:auto}
+.stage h2 b{color:var(--accent);margin-right:6px}
+.row{border-top:1px solid var(--line);padding:6px 0;font-size:13px}.row:first-of-type{border-top:0}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:12px;word-break:break-word}
+.chip{display:inline-block;padding:1px 8px;border-radius:99px;background:var(--chip);font-size:11px;margin-right:4px}
+.s-entailed,.s-executed,.s-valid{color:var(--ok)}.s-contradicted,.s-blocked,.s-rejected,.s-failed{color:var(--bad)}
+.s-uncertain,.s-pending_approval,.s-degraded{color:var(--warn)}.s-unknown,.s-recommended,.s-auto_approved{color:var(--unk)}
+.muted{color:var(--muted)}.bar{height:6px;background:var(--line);border-radius:4px;overflow:hidden;margin-top:3px}.bar i{display:block;height:100%;background:var(--accent)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px}
+#err{color:var(--bad)}
+</style>
+</head>
+<body>
+<header>
+  <h1>OrchidShield · Triage Agent</h1>
+  <input id="key" type="password" placeholder="API key (operator / approver / admin)" autocomplete="off" style="min-width:240px">
+  <select id="scenario" aria-label="scenario"></select>
+  <button class="primary" id="run">Run scenario</button>
+  <button class="danger" id="kill">Kill switch</button>
+  <span id="status" class="muted"></span><span id="err"></span>
+</header>
+<main>
+  <div class="summary"><h2>Case summary</h2><div id="summary" class="muted">Pick a scenario and run it. Text from alerts is shown as data only.</div></div>
+  <div class="stages">
+    <section class="stage"><h2><b>1</b>Percepts</h2><div id="percepts"></div></section>
+    <section class="stage"><h2><b>2</b>Propositions</h2><div id="props"></div></section>
+    <section class="stage"><h2><b>3</b>Knowledge used</h2><div id="kb"></div></section>
+    <section class="stage"><h2><b>4</b>Inference</h2><div id="inf"></div></section>
+    <section class="stage"><h2><b>5</b>Entailment</h2><div id="ent"></div></section>
+    <section class="stage"><h2><b>6</b>Action</h2><div id="act"></div></section>
+  </div>
+  <div class="grid2">
+    <section class="stage"><h2>Pending approvals</h2><div id="appr" class="muted">None</div></section>
+    <section class="stage"><h2>Audit trail (latest)</h2><div id="audit"></div></section>
+  </div>
+</main>
+<script>
+"use strict";
+const $ = id => document.getElementById(id);
+try { $("key").value = sessionStorage.getItem("os-key") || ""; } catch (e) {}
+$("key").addEventListener("change", () => { try { sessionStorage.setItem("os-key", $("key").value); } catch (e) {} });
+
+async function api(path, opts = {}) {
+  const r = await fetch(path, {...opts, headers: {"Content-Type": "application/json", "X-API-Key": $("key").value}});
+  const body = await r.json().catch(() => ({}));
+  if (!r.ok) throw new Error(body.detail || r.status);
+  return body;
+}
+// Build DOM with textContent only: alert text is untrusted and must never be rendered as HTML.
+function el(tag, cls, text) { const e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
+function row(parent, parts) { const d = el("div", "row"); parts.forEach(p => d.appendChild(p)); parent.appendChild(d); return d; }
+function chip(t, cls) { return el("span", "chip " + (cls || ""), t); }
+function clear(...ids) { ids.forEach(i => $(i).replaceChildren()); }
+
+async function loadScenarios() {
+  try {
+    const list = await api("/api/scenarios");
+    const keep = $("scenario").value;
+    $("scenario").replaceChildren(...list.map(s => { const o = el("option", null, s.name + " — " + s.title); o.value = s.name; return o; }));
+    if (keep) $("scenario").value = keep;
+    $("err").textContent = "";
+  } catch (e) { $("err").textContent = " Enter a valid API key (" + e.message + ")"; }
+}
+
+function render(c) {
+  clear("percepts", "props", "kb", "inf", "ent", "act");
+  $("summary").textContent = c.summary + "  [case " + c.case_id + ", " + c.iterations + " iteration(s)" + (c.halted ? ", HALTED" : "") + "]";
+  c.percepts.forEach(p => {
+    const d = row($("percepts"), [chip(p.kind), chip(p.validation, "s-" + p.validation), el("span", "muted", p.source + " · q=" + p.quality)]);
+    const id = p.payload.alert_id || p.payload.event_id || p.payload.tool || p.percept_id;
+    d.appendChild(el("div", "mono", id + (p.payload.description ? " — " + p.payload.description : "")));
+    (p.issues || []).forEach(i => d.appendChild(el("div", "s-degraded", "⚠ " + i)));
+    (p.content_flags || []).forEach(f => d.appendChild(chip(f, "s-rejected")));
+  });
+  c.propositions.forEach(p => {
+    const a = (p.atom.positive ? "" : "¬") + p.atom.predicate + "(" + p.atom.args.join(", ") + ")";
+    row($("props"), [el("div", "mono", a), el("div", "muted", "test: " + p.testable_by + " · conf " + p.confidence.toFixed(2))]);
+  });
+  c.contradictions.forEach(x => row($("props"), [chip("contradiction", "s-contradicted"), el("span", "mono", x.statement + " — " + x.description)]));
+  c.knowledge_used.forEach(k => row($("kb"), [el("span", "mono", k)]));
+  c.inference.risks.forEach(r => {
+    const d = row($("inf"), [el("b", null, "#" + r.rank + " " + r.asset_id + "  risk " + r.risk_score.toFixed(2))]);
+    d.appendChild(el("div", "muted", "P(compromise) " + r.p_compromise_bayes.toFixed(2) + " · ML " + (r.p_true_positive_ml == null ? "n/a" : r.p_true_positive_ml.toFixed(2)) + " · stage " + r.hmm_stage + " · blast " + r.blast_radius.toFixed(2)));
+    const b = el("div", "bar"); const i = el("i"); i.style.width = (r.risk_score * 100) + "%"; b.appendChild(i); d.appendChild(b);
+  });
+  c.inference.incidents.forEach(i => row($("inf"), [chip(i.incident_id), el("span", null, i.incident_type + " · " + i.assets.join(", ") + " · conf " + i.confidence)]));
+  c.inference.steps.forEach(s => row($("inf"), [chip(s.method), el("span", "mono", s.subject + " → " + s.output), el("div", "muted", s.rationale)]));
+  c.entailments.forEach(e => {
+    const d = row($("ent"), [chip(e.status, "s-" + e.status), el("span", "mono", e.query)]);
+    if (e.probabilistic_support != null) d.appendChild(el("span", "muted", "  P=" + e.probabilistic_support.toFixed(2) + (e.sufficiently_supported && e.status !== "entailed" ? " (supported, not proof)" : "")));
+    d.appendChild(el("div", "muted", e.rationale));
+    (e.proof || []).slice(-3).forEach(p => d.appendChild(el("div", "mono", "  " + p)));
+    (e.conflicts || []).forEach(p => d.appendChild(el("div", "mono s-contradicted", "  conflict: " + p)));
+  });
+  c.proposals.forEach(p => {
+    const d = row($("act"), [chip(p.status, "s-" + p.status), el("b", null, p.action + "(" + p.target + ")"), el("span", "muted", "  U=" + p.utility + " conf " + p.confidence)]);
+    d.appendChild(el("div", "muted", "because: " + p.justification.join("; ")));
+    (p.blocked_reasons || []).forEach(r => d.appendChild(el("div", "s-blocked", "✖ " + r)));
+    (p.alternatives_considered || []).forEach(r => d.appendChild(el("div", "s-auto_approved", "↳ alternative: " + r)));
+    if (p.schedule && p.schedule.analyst) d.appendChild(el("div", "muted", "scheduled: " + p.schedule.analyst + " slot " + p.schedule.slot));
+  });
+  Object.entries(c.rl_advice || {}).forEach(([h, a]) => row($("act"), [chip("RL advisor"), el("span", "muted", h + ": " + a + " (advisory only)")]));
+}
+
+async function refreshSide() {
+  try {
+    const ap = await api("/api/approvals");
+    $("appr").replaceChildren();
+    if (!ap.length) $("appr").textContent = "None";
+    ap.forEach(p => {
+      const d = row($("appr"), [el("b", null, p.action + "(" + p.target + ")"), el("span", "muted", "  " + p.case_id)]);
+      ["approve", "reject"].forEach(k => {
+        const b = el("button", k === "approve" ? "primary" : "", k); b.style.marginLeft = "8px";
+        b.onclick = async () => { try { await api("/api/approvals/" + p.proposal_id, {method: "POST", body: JSON.stringify({approve: k === "approve", note: "via UI"})}); refreshSide(); } catch (e) { $("err").textContent = " " + e.message; } };
+        d.appendChild(b);
+      });
+    });
+    const au = await api("/api/audit?limit=25");
+    $("audit").replaceChildren();
+    au.reverse().forEach(a => row($("audit"), [el("span", "mono", "#" + a.seq + " " + a.event_type), el("span", "muted", "  " + a.actor + (a.case_id ? " · " + a.case_id : ""))]));
+    const h = await (await fetch("/health")).json();
+    $("status").textContent = "kill switch: " + (h.kill_switch ? "ENGAGED" : "off") + " · model: " + (h.model_loaded ? "loaded" : "fallback");
+  } catch (e) { /* read access may be denied for this key */ }
+}
+
+$("run").onclick = async () => {
+  $("err").textContent = ""; $("summary").textContent = "Running…";
+  try {
+    const r = await api("/api/scenarios/" + $("scenario").value + "/run", {method: "POST"});
+    if (r.report) { $("summary").textContent = "Learning case: " + JSON.stringify(r.report.learning_case); clear("percepts", "props", "kb", "inf", "ent", "act"); }
+    else render(r);
+  } catch (e) { $("err").textContent = " " + e.message; $("summary").textContent = ""; }
+  refreshSide();
+};
+$("kill").onclick = async () => {
+  try { const h = await (await fetch("/health")).json();
+    await api("/api/admin/kill-switch", {method: "POST", body: JSON.stringify({engaged: !h.kill_switch, reason: "ui"})}); refreshSide();
+  } catch (e) { $("err").textContent = " " + e.message; }
+};
+$("key").addEventListener("change", () => { loadScenarios(); refreshSide(); });
+loadScenarios(); refreshSide();
+</script>
+</body>
+</html>
