@@ -1,0 +1,25 @@
+{
+  "name": "orchidshield-host-compromise-bn",
+  "version": "1.0",
+  "description": "Per-host compromise network. Binary nodes. CPT entries give P(node=true | parents) keyed by parent truth values in parent order ('T'/'F', comma separated; '' for roots). Hand-elicited priors, sanity-checked against the synthetic generator in 02_simulation.ipynb.",
+  "nodes": [
+    {"name": "ThreatActive", "parents": [], "cpt": {"": 0.10},
+     "doc": "An adversary campaign is targeting this host's segment (latent)."},
+    {"name": "Compromise", "parents": ["ThreatActive"], "cpt": {"T": 0.60, "F": 0.03},
+     "doc": "Host is actually compromised (query variable)."},
+    {"name": "Maintenance", "parents": [], "cpt": {"": 0.05},
+     "doc": "Approved maintenance window (benign explanation for anomalies)."},
+    {"name": "IOCMatch", "parents": ["Compromise"], "cpt": {"T": 0.70, "F": 0.03},
+     "doc": "Any alert on the host matched a known-bad indicator."},
+    {"name": "AuthAnomaly", "parents": ["Compromise", "Maintenance"],
+     "cpt": {"T,T": 0.90, "T,F": 0.85, "F,T": 0.40, "F,F": 0.06},
+     "doc": "Success-after-failures or impossible travel on the host. Maintenance explains away."},
+    {"name": "EDRDetection", "parents": ["Compromise"], "cpt": {"T": 0.80, "F": 0.06},
+     "doc": "EDR raised an execution-class detection. Unobserved when the host has no EDR."},
+    {"name": "LateralSignal", "parents": ["Compromise"], "cpt": {"T": 0.45, "F": 0.02},
+     "doc": "Lateral-movement or exfiltration alert on the host."},
+    {"name": "AnalystFP", "parents": ["Compromise"], "cpt": {"T": 0.05, "F": 0.60},
+     "doc": "An analyst marked an alert on the host as false positive."}
+  ],
+  "query": "Compromise"
+}

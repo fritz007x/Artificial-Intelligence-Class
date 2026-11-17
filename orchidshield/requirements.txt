@@ -1,0 +1,6 @@
+# Serving
+fastapi==0.163.1
+uvicorn==0.54.0
+pydantic==2.13.5
+numpy==2.5.3
+PyYAML==6.0.3

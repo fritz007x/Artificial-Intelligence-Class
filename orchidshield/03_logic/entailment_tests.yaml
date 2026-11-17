@@ -1,0 +1,74 @@
+# Entailment test cases. Propositional cases are checked with BOTH resolution refutation
+# and truth-table model checking (they must agree). FOL cases are checked with backward
+# chaining against rules.yaml + ontology.yaml through the agent KnowledgeBase, which
+# reports ENTAILED / CONTRADICTED / UNCERTAIN / UNKNOWN.
+propositional:
+  - id: PL1_malware_ioc_is_high_priority
+    facts: [IocA, ExecA, CritH]
+    query: HighH
+    expect: true
+  - id: PL2_credential_attack_without_success_not_entailed
+    facts: [CredA, CritH]
+    query: CompH
+    expect: false
+  - id: PL3_containment_from_credential_compromise
+    facts: [CredA, SafU]
+    query: ContainH
+    expect: true
+  - id: PL4_analyst_fp_entails_not_tp
+    facts: [FpA]
+    query: ~TpA
+    expect: true
+  - id: PL5_noncritical_host_not_high_priority
+    facts: [IocA, ExecA]
+    query: HighH
+    expect: false
+  - id: PL6_contradiction_is_unsatisfiable
+    facts: [IocA, ExecA, FpA]
+    query: null          # KB itself must be unsatisfiable (conflict)
+    expect: unsatisfiable
+
+fol:
+  - id: FOL1_entailed_compromise
+    facts:
+      - "AlertType(A1, ransomware_behavior)"
+      - "OnAsset(A1, srv-db-01)"
+      - "HasIndicator(A1, deadbeef)"
+      - "KnownBadIndicator(deadbeef)"
+      - "Critical(srv-db-01)"
+    query: "HighPriorityIncident(srv-db-01)"
+    expect: entailed
+  - id: FOL2_unknown_without_evidence
+    facts:
+      - "AlertType(A2, port_scan)"
+      - "OnAsset(A2, ws-001)"
+    query: "CompromisedHost(srv-db-01)"
+    expect: unknown
+  - id: FOL3_contradicted_by_analyst
+    facts:
+      - "AlertType(A3, malware_execution)"
+      - "OnAsset(A3, ws-002)"
+      - "HasIndicator(A3, badhash)"
+      - "KnownBadIndicator(badhash)"
+      - "AnalystVerdictFP(A3)"
+    query: "CompromisedHost(ws-002)"
+    expect: contradicted
+  - id: FOL4_maintenance_scan_refutes
+    facts:
+      - "AlertType(A4, vuln_scan)"
+      - "OnAsset(A4, srv-app-01)"
+      - "InMaintenance(srv-app-01)"
+    query: "¬TruePositive(A4)"
+    expect: entailed
+  - id: FOL5_credential_chain_uncertain_without_success
+    facts:
+      - "AlertType(A5, brute_force)"
+      - "OnAsset(A5, ws-003)"
+      - "ForUser(A5, u-17)"
+    query: "CompromisedAccount(u-17)"
+    expect: uncertain     # partial premises present, conclusion not provable
+  - id: FOL6_transitive_ontology
+    facts:
+      - "AlertType(A6, ransomware_behavior)"
+    query: "AlertClass(A6, intrusion)"
+    expect: entailed

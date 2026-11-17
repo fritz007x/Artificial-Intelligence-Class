@@ -1,0 +1,23 @@
+{
+  "name": "orchidshield-kill-chain-hmm",
+  "version": "1.0",
+  "description": "Hidden attack stage per host. Observations are the kill-chain symbol of each successive alert (or 'quiet' for an empty time bin). Left-to-right with small regression probability. Parameters re-estimated against the synthetic generator (see 02_simulation.ipynb).",
+  "states": ["benign", "recon", "initial_access", "lateral_movement", "exfiltration"],
+  "observations": ["quiet", "scan", "auth_anomaly", "malware", "lateral", "exfil"],
+  "start": [0.90, 0.05, 0.03, 0.015, 0.005],
+  "transition": [
+    [0.90, 0.06, 0.03, 0.007, 0.003],
+    [0.10, 0.60, 0.25, 0.04, 0.01],
+    [0.03, 0.02, 0.60, 0.30, 0.05],
+    [0.02, 0.01, 0.05, 0.70, 0.22],
+    [0.02, 0.01, 0.02, 0.10, 0.85]
+  ],
+  "emission": [
+    [0.70, 0.12, 0.10, 0.04, 0.03, 0.01],
+    [0.30, 0.55, 0.08, 0.03, 0.03, 0.01],
+    [0.20, 0.05, 0.40, 0.30, 0.04, 0.01],
+    [0.15, 0.04, 0.12, 0.12, 0.52, 0.05],
+    [0.15, 0.02, 0.05, 0.05, 0.13, 0.60]
+  ],
+  "stage_severity": {"benign": 0.0, "recon": 0.25, "initial_access": 0.6, "lateral_movement": 0.85, "exfiltration": 1.0}
+}

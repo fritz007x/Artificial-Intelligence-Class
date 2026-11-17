@@ -1,0 +1,255 @@
+{
+ "seed": 1337,
+ "n": {
+  "train": 2399,
+  "val": 800,
+  "test": 801
+ },
+ "positive_rate": 0.306,
+ "features": [
+  "severity",
+  "criticality",
+  "ioc_match",
+  "ioc_confidence",
+  "failed_logins",
+  "success_after_fail",
+  "impossible_travel",
+  "edr_source",
+  "off_hours",
+  "privileged_user",
+  "asset_alert_count",
+  "cls_credential",
+  "cls_execution",
+  "cls_recon",
+  "cls_lateral",
+  "cls_exfil"
+ ],
+ "cv": {
+  "logistic_regression": {
+   "cv_auc_mean": 0.9725,
+   "cv_auc_std": 0.0092
+  },
+  "mlp": {
+   "cv_auc_mean": 0.9663,
+   "cv_auc_std": 0.0082
+  }
+ },
+ "val": {
+  "majority": {
+   "accuracy": 0.6937,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "fpr": 0.0,
+   "roc_auc": 0.5,
+   "log_loss": 0.6161,
+   "brier": 0.2125,
+   "ece": 0.0003
+  },
+  "symbolic_rules": {
+   "accuracy": 0.7863,
+   "precision": 0.8491,
+   "recall": 0.3673,
+   "f1": 0.5128,
+   "fpr": 0.0288,
+   "roc_auc": 0.7936,
+   "log_loss": 0.5098,
+   "brier": 0.1655,
+   "ece": 0.0491
+  },
+  "sklearn_logreg": {
+   "accuracy": 0.8862,
+   "precision": 0.8565,
+   "recall": 0.7551,
+   "f1": 0.8026,
+   "fpr": 0.0559,
+   "roc_auc": 0.9547,
+   "log_loss": 0.2459,
+   "brier": 0.0767,
+   "ece": 0.0185
+  },
+  "sklearn_random_forest": {
+   "accuracy": 0.885,
+   "precision": 0.8228,
+   "recall": 0.7959,
+   "f1": 0.8091,
+   "fpr": 0.0757,
+   "roc_auc": 0.9472,
+   "log_loss": 0.2674,
+   "brier": 0.083,
+   "ece": 0.0352
+  },
+  "logistic_regression": {
+   "accuracy": 0.895,
+   "precision": 0.8643,
+   "recall": 0.7796,
+   "f1": 0.8197,
+   "fpr": 0.0541,
+   "roc_auc": 0.9556,
+   "log_loss": 0.2461,
+   "brier": 0.0761,
+   "ece": 0.0272
+  },
+  "mlp": {
+   "accuracy": 0.8862,
+   "precision": 0.8291,
+   "recall": 0.7918,
+   "f1": 0.81,
+   "fpr": 0.0721,
+   "roc_auc": 0.9567,
+   "log_loss": 0.251,
+   "brier": 0.0768,
+   "ece": 0.0401
+  }
+ },
+ "selected_model": "mlp",
+ "selection_rule": "highest validation ROC-AUC (3 d.p.), ties broken by lower ECE; numpy-exportable only",
+ "test": {
+  "majority": {
+   "accuracy": 0.6941,
+   "precision": 0.0,
+   "recall": 0.0,
+   "f1": 0.0,
+   "fpr": 0.0,
+   "roc_auc": 0.5,
+   "log_loss": 0.6158,
+   "brier": 0.2123,
+   "ece": 0.0001
+  },
+  "symbolic_rules": {
+   "accuracy": 0.7953,
+   "precision": 0.9263,
+   "recall": 0.3592,
+   "f1": 0.5176,
+   "fpr": 0.0126,
+   "roc_auc": 0.798,
+   "log_loss": 0.4927,
+   "brier": 0.1589,
+   "ece": 0.051
+  },
+  "sklearn_random_forest": {
+   "accuracy": 0.9039,
+   "precision": 0.8529,
+   "recall": 0.8286,
+   "f1": 0.8406,
+   "fpr": 0.0629,
+   "roc_auc": 0.9562,
+   "log_loss": 0.2449,
+   "brier": 0.0738,
+   "ece": 0.0341
+  },
+  "logistic_regression": {
+   "accuracy": 0.9076,
+   "precision": 0.8638,
+   "recall": 0.8286,
+   "f1": 0.8458,
+   "fpr": 0.0576,
+   "roc_auc": 0.9597,
+   "log_loss": 0.2291,
+   "brier": 0.0698,
+   "ece": 0.0268
+  },
+  "mlp": {
+   "accuracy": 0.9076,
+   "precision": 0.8638,
+   "recall": 0.8286,
+   "f1": 0.8458,
+   "fpr": 0.0576,
+   "roc_auc": 0.9625,
+   "log_loss": 0.2244,
+   "brier": 0.0682,
+   "ece": 0.0234
+  }
+ },
+ "fairness": {
+  "symbolic_rules": {
+   "fpr_by_region": {
+    "APAC": 0.0148,
+    "EU": 0.019,
+    "LATAM": 0.0,
+    "NA": 0.0135
+   },
+   "max_gap": 0.019
+  },
+  "mlp": {
+   "fpr_by_region": {
+    "APAC": 0.0667,
+    "EU": 0.0696,
+    "LATAM": 0.0696,
+    "NA": 0.027
+   },
+   "max_gap": 0.0426
+  },
+  "threshold": 0.1,
+  "passes": true
+ },
+ "lr_coefficients": {
+  "asset_alert_count": 1.947,
+  "severity": 1.298,
+  "success_after_fail": 1.056,
+  "ioc_match": 0.767,
+  "cls_credential": -0.675,
+  "off_hours": 0.545,
+  "failed_logins": 0.543,
+  "cls_lateral": 0.471,
+  "impossible_travel": 0.413,
+  "ioc_confidence": 0.377,
+  "cls_execution": 0.258,
+  "privileged_user": 0.25,
+  "cls_exfil": 0.245,
+  "edr_source": 0.049,
+  "cls_recon": -0.048,
+  "criticality": 0.009
+ },
+ "artifact_sha256": "f6a60c6e5b4618b0d849be27ae4eb36592cf70bbfcb1c3194e885c871773537d",
+ "rl": {
+  "q_learning": {
+   "avg_reward": 3.5477,
+   "fp_containment_rate": 0.0,
+   "missed_compromise_rate": 0.0,
+   "unsafe_action_rate": 0.0
+  },
+  "rule_policy": {
+   "avg_reward": 1.4841,
+   "fp_containment_rate": 0.0,
+   "missed_compromise_rate": 0.0348,
+   "unsafe_action_rate": 0.0
+  },
+  "learning_curve_avg_reward_per_1000": [
+   1.786,
+   1.915,
+   1.772,
+   1.804,
+   1.757,
+   1.81,
+   1.888,
+   1.579,
+   1.956,
+   1.726,
+   1.878,
+   1.634,
+   1.977,
+   1.82,
+   1.936,
+   1.985,
+   2.066,
+   2.398,
+   2.479,
+   2.213
+  ],
+  "states_learned": 36
+ },
+ "learning_case": {
+  "metric": "precision@80 on held-out alerts (analyst queue top 10%)",
+  "rules_only": 0.9375,
+  "rules_plus_ml": 0.975,
+  "improves": true,
+  "rl_improves_reward": true,
+  "guardrails": {
+   "rl_unsafe_action_rate": 0.0,
+   "fairness_gap_ok": true,
+   "ml_can_trigger_disruptive_action": false,
+   "note": "learned scores only re-rank and inform; disruptive actions still need ENTAILED + approval"
+  }
+ }
+}

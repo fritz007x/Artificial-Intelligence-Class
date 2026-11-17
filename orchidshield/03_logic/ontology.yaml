@@ -1,0 +1,48 @@
+# OrchidShield security ontology (taxonomy + relation schema).
+# Loaded as background SubtypeOf/IsA facts. Kill-chain stage maps alert classes to HMM observations.
+alert_taxonomy:            # child: parent
+  brute_force: credential_attack
+  password_spray: credential_attack
+  impossible_travel: credential_attack
+  malware_execution: execution
+  ransomware_behavior: malware_execution
+  suspicious_powershell: execution
+  port_scan: reconnaissance
+  vuln_scan: reconnaissance
+  smb_lateral: lateral_movement
+  pass_the_hash: lateral_movement
+  large_upload: data_exfiltration
+  dns_tunnel: data_exfiltration
+  credential_attack: intrusion
+  execution: intrusion
+  reconnaissance: intrusion
+  lateral_movement: intrusion
+  data_exfiltration: intrusion
+
+asset_taxonomy:
+  domain_controller: server
+  database: server
+  firewall: network_device
+  siem: server
+  server: asset
+  workstation: asset
+  network_device: asset
+
+# alert class -> HMM observation symbol
+kill_chain_observation:
+  reconnaissance: scan
+  credential_attack: auth_anomaly
+  execution: malware
+  lateral_movement: lateral
+  data_exfiltration: exfil
+
+relations:
+  - "OnAsset(Alert, Asset)"
+  - "ForUser(Alert, User)"
+  - "HasIndicator(Alert, Indicator)"
+  - "FromIP(Alert, IP)"
+  - "ConnectedTo(Asset, Asset)"
+  - "LoginSuccess(User, Asset)"
+  - "SuccessAfterFailures(User, Asset)"
+  - "SubtypeOf(Class, Class)"
+  - "IsA(Asset, AssetClass)"

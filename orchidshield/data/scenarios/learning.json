@@ -1,0 +1,6 @@
+{
+ "name": "learning",
+ "title": "Learning case: offline evaluation of learned components against guardrails",
+ "expect": "Reports whether ML-assisted risk fusion improves precision@k over rules-only and whether the RL advisor beats the rule policy, with zero unsafe actions and FPR parity within threshold.",
+ "observations": []
+}
